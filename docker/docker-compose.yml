@@ -1,0 +1,42 @@
+version: "3.8"
+
+services:
+  medichat-api:
+    build: .
+    image: medichat:latest
+    ports:
+      - "${MEDICHAT_API_PORT:-8000}:8000"
+      - "${MEDICHAT_UI_PORT:-7860}:7860"
+    volumes:
+      - ./models:/app/models:ro
+      - ./data:/app/data
+      - ./config:/app/config:ro
+    environment:
+      - MEDICHAT_MODEL_PATH=/app/models/models/Qwen--Qwen2-7B-Instruct/snapshots/master
+      - MEDICHAT_VECTOR_MODEL_PATH=/app/models/models/BAAI--bge-large-zh-v1.5/snapshots/master
+      - MEDICHAT_MILVUS_URI=/app/data/milvus/milvus.db
+      - MEDICHAT_LORA_ADAPTER_PATH=/app/models/lora-adapter
+      - MEDICHAT_LOG_LEVEL=INFO
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/healthz"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  # 可选：Streamlit 前端（与 API 共用 GPU/模型时用此方式）
+  medichat-ui:
+    image: medichat:latest
+    command: streamlit run src/ui/streamlit_app.py --server.port 7860 --server.address 0.0.0.0
+    ports:
+      - "7860:7860"
+    volumes:
+      - ./models:/app/models:ro
+      - ./data:/app/data
+      - ./config:/app/config:ro
+    environment:
+      - MEDICHAT_API_URL=http://medichat-api:8000
+    depends_on:
+      - medichat-api
+    profiles:
+      - full

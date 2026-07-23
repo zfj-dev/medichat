@@ -1,0 +1,9 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "medichat"
+version = "2.0.0"
+description = "中文医疗科普问答系统 —— RAG + Qwen2-7B + 三层安全防线"
+requires-python = ">=3.10"
