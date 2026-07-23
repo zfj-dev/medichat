@@ -22,3 +22,4 @@ logs/
 .vscode/
 .DS_Store
 uploads/
+data/milvus.db/
