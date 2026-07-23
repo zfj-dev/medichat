@@ -18,7 +18,7 @@ class Settings:
     bert_model_path: str = "safety/classifier/saved_model"
 
     # 向量数据库
-    milvus_uri: str = "data/milvus/milvus.db"
+    milvus_uri: str = "data/milvus.db"
     collection_name: str = "medichat_knowledge"
 
     # 检索参数

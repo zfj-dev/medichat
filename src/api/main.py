@@ -1,3 +1,4 @@
+import sys; sys.path.insert(0, "/hy-tmp/medichat")
 """
 MediChat FastAPI 主程序 —— SSE 流式输出 + 多轮对话 + 混合检索
 """
@@ -16,7 +17,7 @@ from src.core.config import settings
 from src.core.llm import LLMEngine
 from src.core.retriever import HybridRetriever
 from src.safety.pipeline import SafetyPipeline
-from src.safety.post_filter import post_filter
+from safety.post_filter import filter as post_filter
 
 # ---- 全局组件 ----
 llm: LLMEngine = None
