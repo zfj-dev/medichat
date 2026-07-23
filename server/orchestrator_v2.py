@@ -34,6 +34,11 @@ async def lifespan(app: FastAPI):
         device_map="auto",
         trust_remote_code=True,
     )
+    print("加载 LoRA adapter...")
+    from peft import PeftModel
+    model = PeftModel.from_pretrained(model, "/hy-tmp/medichat/models/lora-adapter")
+    model = model.to("cuda")
+    print("LoRA adapter 加载完成")
     print("主模型加载完成")
 
     print("加载向量模型...")

@@ -1,0 +1,11 @@
+{
+  "medichat_train": {
+    "file_name": "train_data.json",
+    "formatting": "alpaca",
+    "columns": {
+      "prompt": "instruction",
+      "query": "input",
+      "response": "output"
+    }
+  }
+}
