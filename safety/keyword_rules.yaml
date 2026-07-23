@@ -1,0 +1,41 @@
+# MediChat 安全关键词规则
+rules:
+  - id: urgent_self_harm
+    keywords: ["自杀", "不想活", "结束生命", "自残", "自伤", "割腕", "跳楼", "寻死", "不想活了"]
+    action: emergency
+    template: self_harm
+    priority: 0
+
+  - id: urgent_chest
+    keywords: ["胸痛", "胸闷", "心绞痛", "心梗", "心脏"]
+    modifiers: ["剧烈", "厉害", "严重", "突发", "压迫", "撕裂", "受不了"]
+    zones: ["胸口", "心脏", "心口", "心前区"]
+    feelings: ["痛", "疼", "剧烈", "难受", "不适", "压迫感", "紧缩"]
+    action: emergency
+    template: chest_pain
+    priority: 1
+
+  - id: urgent_breathing
+    keywords: ["呼吸困难", "喘不过气", "窒息", "透不过气", "上不来气", "呼吸不畅"]
+    action: emergency
+    template: breathing
+    priority: 1
+
+  - id: urgent_bleeding
+    keywords: ["大出血", "大量出血", "咳血", "吐血", "便血", "止不住血"]
+    action: emergency
+    template: bleeding
+    priority: 1
+
+  - id: urgent_stroke
+    keywords: ["突然晕倒", "昏迷", "不省人事", "半身不遂", "口眼歪斜", "说不出话", "偏瘫", "面瘫", "半身", "动不了", "一侧肢体", "麻木"]
+    action: emergency
+    template: stroke
+    priority: 1
+
+  - id: urgent_drug
+    keywords: ["安眠药", "镇静药", "止痛药"]
+    modifiers: ["多吃", "过量", "大量", "一次吃", "吞了", "多", "吃多", "太多"]
+    action: emergency
+    template: drug_abuse
+    priority: 2
